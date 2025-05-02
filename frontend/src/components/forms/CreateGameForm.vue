@@ -1,11 +1,19 @@
-<script setup>
-import RadioButtonComponent from "../user-interface/RadioButtonComponent.vue";
+<script setup lang="ts">
+import { ref } from "vue";
+import RadioButtonsComponent from "../user-interface/RadioButtonsComponent.vue";
+
+const items = [{ id: 'offline', label: 'Offline' }, { id: 'online', label: 'Online' }];
+const selectedValue = ref("offline");
+
+function handleGameModeChange(value: string) {
+  selectedValue.value = value;
+}
+
 </script>
 
 <template>
   <div>
     <label>Select type</label>
-    <RadioButtonComponent value="Offline" label="Offline" />
-    <RadioButtonComponent value="Online" label="Online" />
+    <RadioButtonsComponent @change="handleGameModeChange" :items="items" :selected-value="selectedValue" />
   </div>
 </template>
