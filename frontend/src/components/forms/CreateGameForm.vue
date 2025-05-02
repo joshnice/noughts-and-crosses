@@ -1,19 +1,45 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { Button } from "primevue";
 import RadioButtonsComponent from "../user-interface/RadioButtonsComponent.vue";
 
-const items = [{ id: 'offline', label: 'Offline' }, { id: 'online', label: 'Online' }];
-const selectedValue = ref("offline");
+type GameType = "online" | "offline";
 
-function handleGameModeChange(value: string) {
+const emit = defineEmits<{
+  (e: 'onCancel'): void
+  (e: 'onCreate', type: GameType): void
+}>()
+
+const items: { id: GameType, label: string }[] = [{ id: 'offline', label: 'Offline' }, { id: 'online', label: 'Online' }];
+const selectedValue = ref<GameType>("offline");
+
+function handleGameModeChange(value: GameType) {
   selectedValue.value = value;
 }
 
 </script>
 
 <template>
-  <div>
-    <label>Select type</label>
-    <RadioButtonsComponent @change="handleGameModeChange" :items="items" :selected-value="selectedValue" />
+  <div class="container">
+    <h4>Select type</h4>
+    <RadioButtonsComponent @change="(value) => handleGameModeChange(value)" :items="items" :selected-value="selectedValue" />
+    <div class="buttons-container">
+      <Button @click="emit('onCancel')">Cancel</Button>
+      <Button @click="emit('onCreate', selectedValue)">Create</Button>
+    </div>
   </div>
 </template>
+
+<style scoped>
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.buttons-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
+}
+</style>

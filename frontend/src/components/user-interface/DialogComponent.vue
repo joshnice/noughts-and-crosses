@@ -1,19 +1,19 @@
-<script setup>
-import { Button, Dialog, InputText } from "primevue";
+<script setup lang="ts">
+import { Dialog } from "primevue";
 
-const { show } = defineProps({ show: Boolean });
+interface Props {
+    show: boolean;
+    header: string
+}
+
+const { show, header } = defineProps<Props>();
 
 const emit = defineEmits(["onClose"]);
 
-function onCloseClicked() {
-	emit("onClose");
-}
-
-console.log("Show", show);
 </script>
 
 <template>
-    <Dialog :visible="show" @update:visible="onCloseClicked">
+    <Dialog :visible="show" :header="header" @update:visible="emit('onClose')">
         <slot></slot>
     </Dialog>
 </template>
