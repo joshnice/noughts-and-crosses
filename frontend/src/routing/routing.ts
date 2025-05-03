@@ -1,11 +1,11 @@
 import { createRouter, createWebHistory } from "vue-router";
-import GameView from "../views/GameView.vue";
+import LocalGameView from "../views/LocalGameView.vue";
 import HomeView from "../views/HomeView.vue";
 
 const routes = [
 	{ path: "/", component: HomeView },
-	{ path: "/game", component: GameView },
-	{ path: "/:pathMatch(.*)*", name: "NotFound", component: HomeView },
+	{ path: "/local-game/:gameId", component: LocalGameView },
+	{ path: "/:pathMatch(.*)*", component: HomeView },
 ];
 
 export const router = createRouter({

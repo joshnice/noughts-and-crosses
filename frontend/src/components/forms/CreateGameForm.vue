@@ -2,16 +2,16 @@
 import { ref } from "vue";
 import { Button } from "primevue";
 import RadioButtonsComponent from "../user-interface/RadioButtonsComponent.vue";
+import type { GameType } from "../../types/game";
 
-type GameType = "online" | "offline";
 
 const emit = defineEmits<{
   (e: 'onCancel'): void
   (e: 'onCreate', type: GameType): void
-}>()
+}>();
 
-const items: { id: GameType, label: string }[] = [{ id: 'offline', label: 'Offline' }, { id: 'online', label: 'Online' }];
-const selectedValue = ref<GameType>("offline");
+const items: { id: GameType, label: string }[] = [{ id: 'local', label: 'Local' }, { id: 'online', label: 'Online' }];
+const selectedValue = ref<GameType>("local");
 
 function handleGameModeChange(value: GameType) {
   selectedValue.value = value;

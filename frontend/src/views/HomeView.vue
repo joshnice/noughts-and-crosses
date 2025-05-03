@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 import CreateGameForm from "../components/forms/CreateGameForm.vue";
 import DialogComponent from "../components/user-interface/DialogComponent.vue";
+import type { GameType } from "../types/game";
+
+const router = useRouter();
 
 const showCreateNewGameModal = ref(false);
 
@@ -13,9 +17,16 @@ function onCreateNewGameModalClosedClicked() {
 	showCreateNewGameModal.value = false;
 }
 
-function onCreateNewGameSubmited(gametype: string) {
+function onCreateNewGameSubmited(gametype: GameType) {
   console.log(gametype);
   showCreateNewGameModal.value = false;
+  switch (gametype) {
+    case "local":
+      router.push(`local-game/${crypto.randomUUID()}`);
+      break;
+    default:
+      throw new Error(`${gametype} not handled`);
+  }
 }
 
 </script>
