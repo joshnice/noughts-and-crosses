@@ -18,7 +18,6 @@ function onCreateNewGameModalClosedClicked() {
 }
 
 function onCreateNewGameSubmited(gametype: GameType) {
-  console.log(gametype);
   showCreateNewGameModal.value = false;
   switch (gametype) {
     case "local":
